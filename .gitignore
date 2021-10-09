@@ -1,0 +1,5 @@
+# nodeJS artifacts
+/node_modules
+
+# env file
+/utils/creds.json
