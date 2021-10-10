@@ -51,7 +51,7 @@ gh repo clone louislspn/spotify-api
 
 ### Install dependencies
 
-In the freshly installed theme folder run the command below :
+In the freshly installed folder run the command below :
 ```
 npm install
 ```
