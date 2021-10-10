@@ -1,21 +1,24 @@
 const fs = require('fs')
 const spotify = require('./fetch')
-const creds = require('./creds.json')
+let creds = require('./creds.json')
 
-function init () {
+function init (callback) {
 
   const base64token = Buffer.from(creds.client_id + ':' + creds.client_secret).toString('base64')
 
   function editjson (res) {
+
     const data = {
       ...creds,
       ...res,
       timestamp: Date.now()
     }
 
-    console.info(data)
-
     fs.writeFileSync('./utils/creds.json', JSON.stringify(data))
+    creds = require('./creds.json')
+
+    callback(creds)
+
   }
 
   if(!creds.access_token) { // CREATE
@@ -42,6 +45,10 @@ function init () {
         refresh_token: creds.refresh_token
       }
     }, 'POST', false, editjson)
+
+  } else {
+
+    callback(creds)
 
   }
 
